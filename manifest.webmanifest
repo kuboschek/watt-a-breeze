@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "Watt a Breeze",
+  "short_name": "Watt a Breeze",
+  "description": "Local Bluetooth fan control for the Wahoo KICKR HEADWIND.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#0088cc",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -6,6 +6,10 @@ const root = new URL('./', import.meta.url);
 const files = new Map([
   ['/', ['index.html', 'text/html']], ['/index.html', ['index.html', 'text/html']],
   ['/favicon.svg', ['favicon.svg', 'image/svg+xml']],
+  ['/manifest.webmanifest', ['manifest.webmanifest', 'application/manifest+json']],
+  ['/pwa.js', ['pwa.js', 'text/javascript']], ['/sw.js', ['sw.js', 'text/javascript']],
+  ['/icons/icon-192.png', ['icons/icon-192.png', 'image/png']],
+  ['/icons/icon-512.png', ['icons/icon-512.png', 'image/png']],
   ['/styles.css', ['styles.css', 'text/css']], ['/app.js', ['app.js', 'text/javascript']],
   ['/core.js', ['core.js', 'text/javascript']], ['/bluetooth.js', ['bluetooth.js', 'text/javascript']],
 ]);
@@ -16,7 +20,7 @@ const server = createServer(async (req, res) => {
   try {
     const data = await readFile(fileURLToPath(new URL(file[0], root)));
     res.writeHead(200, {
-      'Content-Type': `${file[1]}; charset=utf-8`, 'Cache-Control': 'no-store',
+      'Content-Type': file[1] === 'image/png' ? file[1] : `${file[1]}; charset=utf-8`, 'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
       'Content-Security-Policy': "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
       'Permissions-Policy': 'bluetooth=(self)',

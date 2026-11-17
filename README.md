@@ -2,6 +2,8 @@
 
 A cycling and cooling pun, and a dependency-free local controller for the Wahoo KICKR HEADWIND. Watt a Breeze runs on your computer and communicates directly with the fan using Web Bluetooth. No account, build step, analytics, cloud, or native Bluetooth helper.
 
+**Manual fan control works:** connect your HEADWIND, set airflow with the slider or presets, and turn the fan off. Browser adaptive cooling is implemented separately and still needs physical sensor validation.
+
 ## Run
 
 Requires Node.js 22+ and a browser with Web Bluetooth (Chrome or Edge on macOS/Windows, or a supported Android browser). Safari and Firefox cannot connect directly. Linux support depends on browser/platform configuration.
@@ -19,6 +21,14 @@ Open **http://127.0.0.1:5173** in Chrome. Bluetooth must be enabled; grant the b
 
 The default view contains only basic fan controls. Open **Advanced** for adaptive cooling, sensor thresholds, demo mode, renamed-device discovery, firmware details, and connection logs. Collapsing Advanced keeps active adaptive control running; its badge remains visible beside the basic controls, and **Turn off** stops it.
 
+## Install as a web app
+
+Open the HTTPS hosted site (or the local URL above) in Chrome or Edge, then use the address-bar install icon or the browser menu's **Install app** option. On supported Android browsers, use **Install app** or **Add to Home screen**. Launching the installed app opens Watt a Breeze in its own window with the smiling fan icon. Installation requires a [compatible browser and a secure origin](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable); localhost and `127.0.0.1` work for local use.
+
+After the first successful online load finishes caching, the app can reopen offline. Fan control still uses local Bluetooth and requires a browser with Web Bluetooth; installing on Safari or iOS does not add Bluetooth support. Reconnect your fan when you reopen the app. Keep the app visible and your computer awake during browser adaptive control.
+
+The service worker tries the network first and falls back to cached app files when offline. Updates are picked up when you open or reload while online. Bluetooth permissions and cooling profiles stay local to the site's origin.
+
 ## GitHub Pages
 
 The app also works as an HTTPS static site. GitHub only hosts the files; Bluetooth communication and sensor readings stay in your browser. The local Node server is not deployed. Bluetooth permissions and saved profiles belong to each origin, so the hosted site needs its own device permission and profile setup.
@@ -31,13 +41,13 @@ For a new repository, enable **Settings → Pages → Build and deployment → S
 npm run build
 ```
 
-This copies only the six browser assets (including the SVG favicon) into `dist/`, plus `.nojekyll`. Relative asset URLs support both a repository subpath and a custom domain. No dependency installation is required. See [GitHub's Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+This copies the browser assets, web app manifest, service worker, and app icons into `dist/`, plus `.nojekyll`. Relative asset URLs and the service worker scope support both a repository subpath and a custom domain. No dependency installation is required. See [GitHub's Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ## Multi-sensor settings: what works
 
 | Feature | PoC support |
 | --- | --- |
-| Manual speed 1–100%, fan off | Community BLE protocol implemented; physical fan verification required |
+| Manual speed 1–100%, fan off | Working with the HEADWIND via Bluetooth: slider, presets, and turn off |
 | Browser adaptive cooling from heart rate and cycling power | Implemented with live BLE measurements, local thresholds, and higher-demand selection each second |
 | Threshold planner for HR, power, cycling speed, run pace, CORE temperature | Local storage, interactive preview, JSON export |
 | Native fan sensor discovery, pairing, enable/disable, read/write thresholds | **Not implemented. Use the Wahoo app.** No verified protocol was found for these newer operations |
@@ -58,7 +68,7 @@ npm run check
 npm test
 ```
 
-Node tests cover packet encoding, serialized writes, cancellation on disconnect, write failures, BLE sensor decoding, validation, stale measurements, and combining sensor demands. They use simulated Bluetooth devices and do not establish physical compatibility. Browser visual QA and actual fan/sensor pairing must be completed on a machine with browser access and the hardware.
+Node tests cover packet encoding, serialized writes, cancellation on disconnect, write failures, BLE sensor decoding, validation, stale measurements, and combining sensor demands. They use simulated Bluetooth devices. Manual fan control works with the HEADWIND; browser adaptive control and live sensor pairing still need hardware validation.
 
 ## Protocol and research sources
 

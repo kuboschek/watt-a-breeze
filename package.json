@@ -7,6 +7,6 @@
     "start": "node server.mjs",
     "build": "node build.mjs",
     "test": "node --test",
-    "check": "node --check app.js && node --check bluetooth.js && node --check core.js && node --check server.mjs && node --check build.mjs"
+    "check": "node --check app.js && node --check bluetooth.js && node --check core.js && node --check pwa.js && node --check sw.js && node --check server.mjs && node --check build.mjs"
   }
 }
