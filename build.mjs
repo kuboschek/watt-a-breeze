@@ -4,7 +4,7 @@ const root = new URL('./', import.meta.url);
 const output = new URL('./dist/', root);
 const assets = [
   'index.html', 'favicon.svg', 'styles.css', 'app.js', 'bluetooth.js', 'core.js',
-  'manifest.webmanifest', 'pwa.js', 'sw.js', 'icons/icon-192.png', 'icons/icon-512.png',
+  'manifest.webmanifest', 'pwa.js', 'sw.js', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png',
 ];
 
 await rm(output, { recursive: true, force: true });
