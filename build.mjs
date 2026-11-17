@@ -2,7 +2,7 @@ import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises';
 
 const root = new URL('./', import.meta.url);
 const output = new URL('./dist/', root);
-const assets = ['index.html', 'styles.css', 'app.js', 'bluetooth.js', 'core.js'];
+const assets = ['index.html', 'favicon.svg', 'styles.css', 'app.js', 'bluetooth.js', 'core.js'];
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });

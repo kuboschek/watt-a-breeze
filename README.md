@@ -31,7 +31,7 @@ For a new repository, enable **Settings → Pages → Build and deployment → S
 npm run build
 ```
 
-This copies only the five browser assets into `dist/`, plus `.nojekyll`. Relative asset URLs support both a repository subpath and a custom domain. No dependency installation is required. See [GitHub's Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+This copies only the six browser assets (including the SVG favicon) into `dist/`, plus `.nojekyll`. Relative asset URLs support both a repository subpath and a custom domain. No dependency installation is required. See [GitHub's Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ## Multi-sensor settings: what works
 

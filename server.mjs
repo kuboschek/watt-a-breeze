@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = new URL('./', import.meta.url);
 const files = new Map([
   ['/', ['index.html', 'text/html']], ['/index.html', ['index.html', 'text/html']],
+  ['/favicon.svg', ['favicon.svg', 'image/svg+xml']],
   ['/styles.css', ['styles.css', 'text/css']], ['/app.js', ['app.js', 'text/javascript']],
   ['/core.js', ['core.js', 'text/javascript']], ['/bluetooth.js', ['bluetooth.js', 'text/javascript']],
 ]);
