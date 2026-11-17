@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0088cc"><meta name="description" content="Watt a Breeze — local Bluetooth fan control for the Wahoo KICKR HEADWIND.">
+  <title>Watt a Breeze — Fan control</title><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main>
+    <header class="intro"><h1>Watt a Breeze</h1><span>Local fan control</span></header>
+    <div id="notice" class="notice" role="status" aria-live="polite">Connect your fan to control airflow.</div>
+    <section class="controller" aria-label="Basic fan controls">
+    <section class="device-bar" aria-label="Fan connection">
+      <div class="device-info"><strong id="device-name">KICKR HEADWIND</strong><span id="connection-status" class="status">Disconnected</span></div>
+      <button id="connect" class="primary">Connect</button><button id="disconnect" hidden>Disconnect</button>
+    </section>
+      <div class="airflow">
+        <span id="control-badge" class="pill" hidden>Adaptive</span>
+        <div class="gauge" id="gauge"><div class="gauge-inner"><div><span id="speed-display">—</span><span class="percent">%</span></div><span id="speed-caption">No command sent</span></div></div>
+        <label for="speed" class="slider-label">Airflow <output id="speed-value">50%</output></label><input id="speed" type="range" min="0" max="100" step="1" value="50"><div class="range-labels"><span>Off</span><span>100%</span></div>
+        <div class="presets" aria-label="Speed presets"><button data-speed="25">25%</button><button data-speed="50">50%</button><button data-speed="75">75%</button><button data-speed="100">100%</button></div>
+        <button id="off" class="wide">Turn off</button>
+      </div>
+    </section>
+    <p class="basic-note">Disconnecting or closing this page may leave the fan running.</p>
+    <details id="advanced" class="advanced">
+      <summary>Advanced</summary>
+      <div class="advanced-content">
+        <div class="utility-row"><label><input type="checkbox" id="show-all"> Show renamed Bluetooth devices</label><button id="demo" class="text-button">Try demo mode</button></div>
+        <div class="device-details"><span id="device-detail">Bluetooth Low Energy · No fan connected</span><button id="apply-speed">Reapply airflow</button></div>
+        <p class="fine-print">Connecting does not change fan settings. The display shows the last command written, not a measured fan speed.</p>
+      <section class="panel adaptive">
+        <div class="section-heading"><h2>Adaptive cooling</h2><span class="pill outlined">Browser mode</span></div>
+        <p class="muted">Connect a heart-rate sensor and/or cycling-power sensor. The browser requests the higher airflow once a second using your thresholds below.</p>
+        <div id="live-sensors" class="live-sensors"></div>
+        <div class="adaptive-result"><span><span class="dot" id="adaptive-dot"></span> <span id="adaptive-status">Ready when you are</span></span><strong id="adaptive-output">—</strong></div>
+        <button id="start-adaptive" class="primary wide">Start browser adaptive control</button><button id="stop-adaptive" class="wide" hidden>Stop adaptive control & turn fan off</button>
+        <p class="fine-print">Uses standard BLE heart-rate and cycling-power services; ANT+ and FTMS-only trainers are unsupported. Keep this page visible and your computer awake. If all enabled readings become stale for 10 seconds, control pauses and the last fan setting remains.</p>
+      </section>
+    <section class="panel settings">
+      <div class="section-heading"><h2>Cooling profile</h2><button id="export">Export profile ↓</button></div>
+      <p class="muted">Choose thresholds and preview how sensor requests combine. Settings save in this browser. Sample values are starting points for testing, not personalized recommendations.</p>
+      <div class="native-note"><span class="note-icon" aria-hidden="true">i</span><div><strong>Native adaptive mode still needs the Wahoo app.</strong><p>Firmware 2.0.43+ supports all five sensor types. This PoC cannot read or write native pairing or thresholds. Heart rate and power settings below drive browser mode; the other three are planning and preview only. The preview uses a linear curve; Wahoo’s exact curve is unverified.</p><a href="https://support.wahoofitness.com/hc/en-us/articles/360000780200-Pair-a-Sensor-or-Trainer-to-HEADWIND" target="_blank" rel="noopener noreferrer">Wahoo’s multi-sensor setup guide ↗</a></div></div>
+      <div class="table-scroll"><table><thead><tr><th>Sensor / include</th><th>Starts cooling at</th><th>Full airflow at</th><th>Preview reading</th><th>Request</th></tr></thead><tbody id="settings-rows"></tbody></table></div>
+      <div class="settings-footer"><span id="save-status" role="status">Profile stored locally · Never synced to fan</span><span class="preview-total">Preview only <strong id="preview-output">—</strong></span></div>
+      <p class="fine-print">Preview readings never drive a real fan. For run pace, a lower min/km value means faster running. In the Wahoo app: Devices → HEADWIND → Sensor → pair sensors → select active sensors → Manage thresholds.</p>
+    </section>
+    <details class="panel diagnostics"><summary>Connection log <span>Bluetooth commands & diagnostics</span></summary><div class="log-actions"><button id="download-log">Download log</button><button id="clear-log">Clear</button></div><pre id="log" aria-label="Connection log">Waiting for a connection.</pre></details>
+        <p class="fine-print">Watt a Breeze · Unofficial proof of concept · No cloud · No account</p>
+      </div>
+    </details>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

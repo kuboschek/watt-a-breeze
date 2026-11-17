@@ -1,0 +1,12 @@
+{
+  "name": "watt-a-breeze",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node build.mjs",
+    "test": "node --test",
+    "check": "node --check app.js && node --check bluetooth.js && node --check core.js && node --check server.mjs && node --check build.mjs"
+  }
+}
